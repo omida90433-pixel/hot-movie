@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>থ্রিডি ভি-টিউব প্রো - হট ভিডিও</title>
     
-    <!-- CSS স্টাইল (একীভূত) -->
+    <!-- CSS স্টাইল (পূর্বের মতোই আছে) -->
     <style>
         /* --- গ্লোবাল স্টাইল (কালো থিম) --- */
         body { background-color: #000000; color: #ffffff; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
@@ -69,16 +69,18 @@
         .install-btn { background-color: #d32f2f; color: white; } 
         .install-btn:hover { background-color: #b71c1c; }
         
-        /* অপেক্ষা করার বার্তা (টাইমার চলাকালীন) */
         #waiting-message { display: none; color: #ff4b5c; font-weight: bold; padding: 10px; border: 1px solid #ff4b5c; border-radius: 4px; margin-top: 10px;}
 
-        /* --- ভিডিও প্লেয়ার এলাকা (লুকানো) --- */
+        /* --- ভিডিও প্লেয়ার এলাকা (লোকাল ভিডিওর জন্য আপডেট করা) --- */
         #video-player-section { display: none; padding: 20px; text-align: center; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 960px; margin: 0 auto; background: #000; border-radius: 8px; border: 2px solid #333;}
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .video-container { position: relative; max-width: 960px; margin: 0 auto; background: #000; border-radius: 8px; border: 2px solid #333; line-height: 0;}
+        
+        /* HTML5 ভিডিও স্টাইল */
+        #main-video-player { width: 100%; height: auto; max-height: 540px; outline: none; border-radius: 8px;}
+
         #back-to-grid { margin-top: 20px; background: #444; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;}
 
-        /* --- টাইমার পেজের স্টাইল (নতুন ট্যাবে খোলা হবে) --- */
+        /* --- টাইমার পেজের স্টাইল --- */
         .timer-page { background-color: #000; color: #fff; font-family: Arial, sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
         .timer-box { border: 2px solid #ff4b5c; padding: 40px; border-radius: 10px; background: #111; }
         #time-display { font-size: 60px; color: #ff4b5c; font-weight: bold; margin: 20px 0; }
@@ -110,64 +112,63 @@
         </div>
     </main>
 
-    <!-- ৪. ভিডিও প্লেয়ার এলাকা (লুকানো) -->
+    <!-- ৪. ভিডিও প্লেয়ার এলাকা (HTML5 Player) -->
     <section id="video-player-section">
-        <div class="video-container" id="video-embed-target">
-            <!-- YouTube iframe এখানে বসবে -->
+        <div class="video-container">
+            <!-- HTML5 Video Tag -->
+            <video id="main-video-player" controls controlsList="nodownload">
+                আপনার ব্রাউজার এই ভিডিও ট্যাগ সমর্থন করে না।
+            </video>
         </div>
         <button id="back-to-grid">⬅️ সমস্ত ভিডিওতে ফিরে যান</button>
     </section>
 
-    <!-- ৫. মানবিক যাচাই ও অফার পপআপ (মডেল) -->
+    <!-- ৫. মানবিক যাচাই ও অফার পপআপ -->
     <div id="verificationModal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">&times;</span>
             <h2>Verify you are human</h2>
             <p>ভিডিওটি দেখার আগে অনুগ্রহ করে প্রমাণ করুন যে আপনি রোবট নন।</p>
             
-            <!-- চেক বক্স -->
             <div class="verify-box">
                 <input type="checkbox" id="humanCheck">
                 <label for="humanCheck">I am not a robot</label>
             </div>
             
-            <!-- ডায়নামিক অফার এলাকা -->
             <div class="dynamic-offer-block" id="offer-area">
                 <p>এগিয়ে যেতে নিচের বাটনটি ক্লিক করুন এবং ৬০ সেকেন্ড অপেক্ষা করুন:</p>
                 <div id="offer-buttons-container">
                     <span id="offer-loading">অফার লোড হচ্ছে...</span>
-                    <!-- অফার বাটন এখানে আসবে -->
                 </div>
             </div>
-            <!-- অপেক্ষা করার বার্তা -->
             <div id="waiting-message">অন্য ট্যাবে অফারটি সম্পন্ন হচ্ছে... অফার সম্পূর্ণ হলে এই ট্যাবটি অটোমেটিক্যালি চালু হবে।</div>
         </div>
     </div>
 
-    <!-- Firebase SDKs (CDN থেকে) -->
+    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
-    <!-- ৬. JavaScript লজিক -->
+    <!-- ৬. JavaScript লজিক (লোকাল ভিডিওর জন্য পরিবর্তিত) -->
     <script>
-        // --- ফায়ারবেস কনফিগারেশন ---
+        // --- ফায়ারবেস কনফিগেশন ---
+        // আপনার প্রোজেক্টের কনফিগ এখানে দিন (যদি আগেরটি কাজ না করে)
         const firebaseConfig = {
-            apiKey: "AIzaSyArUnLdrmx0d1hSc05o7H2QpediJAarIv8",
-            authDomain: "dhotmovie-7e866.firebaseapp.com",
-            projectId: "dhotmovie-7e866",
-            storageBucket: "dhotmovie-7e866.firebasestorage.app",
-            messagingSenderId: "180510780394",
-            appId: "1:180510780394:web:3b80f5f43b78375436e093"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_ID",
+            appId: "YOUR_APP_ID"
         };
 
-        // ফায়ারবেস ইনিশিয়ালাইজ করুন
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
         const db = firebase.firestore();
 
         // --- গ্লোবাল ভেরিয়েবল ---
-        let currentVideoIdToPlay = null; 
+        let currentVideoUrlToPlay = null; // আইডি এর বদলে সরাসরি URL সেভ করব
         let offerCheckInterval = null;
         const modal = document.getElementById('verificationModal');
         const humanCheck = document.getElementById('humanCheck');
@@ -175,31 +176,25 @@
         const waitingMessage = document.getElementById('waiting-message');
         const mainArea = document.getElementById('main-area');
         const videoPlayerSection = document.getElementById('video-player-section');
-        const videoEmbedTarget = document.getElementById('video-embed-target');
+        const html5Player = document.getElementById('main-video-player'); // ভিডিও এলিমেন্ট
 
-        // ২৪ ঘন্টা অফার না দেখানোর জন্য চাবি
         const OFFER_COMPLETED_KEY = 'greedyflix_offer_done';
         const COMPLETED_TIMESTAMP_KEY = 'greedyflix_offer_time';
 
-        // --- মূল ফাংশন: পেজ লোড হলে ---
         document.addEventListener("DOMContentLoaded", () => {
-            // URL চেক করুন এটি টাইমার পেজ কিনা
             if (window.location.search.includes('timer=page')) {
                 runTimerPage();
                 return;
             }
 
-            // মূল সাইটের কাজ
             loadVideosFromFirestore();
             loadDynamicOffers();
 
-            // যদি ২৪ ঘন্টার মধ্যে অফার কমপ্লিট করা থাকে, তবে পপআপ দেখাবেন না
             if (isOfferRecentlyCompleted()) {
                 humanCheck.checked = true; 
             }
         });
 
-        // চেক করুন অফার কি ২৪ ঘন্টার মধ্যে কমপ্লিট করা হয়েছে?
         function isOfferRecentlyCompleted() {
             const completed = localStorage.getItem(OFFER_COMPLETED_KEY);
             const timestamp = localStorage.getItem(COMPLETED_TIMESTAMP_KEY);
@@ -207,7 +202,7 @@
             if (completed && timestamp) {
                 const now = new Date().getTime();
                 const hoursPassed = (now - parseInt(timestamp)) / (1000 * 60 * 60);
-                return hoursPassed < 24; // ২৪ ঘন্টার কম হলে সত্য
+                return hoursPassed < 24;
             }
             return false;
         }
@@ -223,4 +218,19 @@
                 }
                 querySnapshot.forEach((doc) => {
                     const video = doc.data();
-                    const videoCard = document.createElement
+                    const videoCard = document.createElement('div');
+                    videoCard.className = 'video-card';
+                    
+                    // ভিডিও কার্ডে ক্লিক করলে সরাসরি URL পাস হবে
+                    videoCard.onclick = () => tryPlayVideo(video.videoUrl);
+
+                    videoCard.innerHTML = `
+                        <img src="${video.thumbnail}" alt="${video.title}" onerror="this.src='https://via.placeholder.com/165x110?text=No+Image'">
+                        <div class="play-overlay"><div class="play-icon">▶️</div></div>
+                        <div class="video-info">
+                            <div class="video-title">${video.title}</div>
+                        </div>
+                    `;
+                    videoContainer.appendChild(videoCard);
+                });
+            }).catch((error
