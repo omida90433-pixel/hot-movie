@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -5,143 +6,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>থ্রিডি ভি-টিউব প্রো - হট ভিডিও</title>
     
-    <!-- CSS স্টাইল (পূর্বের মতোই আছে) -->
     <style>
-        /* --- গ্লোবাল স্টাইল (কালো থিম) --- */
-        body { background-color: #000000; color: #ffffff; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
-        a { text-decoration: none; color: inherit; }
+        /* --- গ্লোবাল স্টাইল --- */
+        body { background-color: #000000; color: #ffffff; font-family: Arial, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        header { background-color: #1a1a1a; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e53935; }
+        header h1 { margin: 0; color: #e53935; font-size: 22px; }
 
-        /* --- সাইট হেডার --- */
-        header { background-color: #1a1a1a; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
-        header h1 { margin: 0; color: #e53935; font-size: 20px; font-weight: 700; }
-        .header-right { display: flex; gap: 15px; }
-        .icon-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; }
-
-        /* --- নোটিশ ব্যানার --- */
-        .notice-container { padding: 15px; }
+        /* --- নোটিশ --- */
+        .notice-container { padding: 10px; }
         .notice-bar {
-            background-color: #111; color: #fff; padding: 15px; text-align: center;
-            border-radius: 25px; font-weight: 600; font-size: 15px; position: relative;
-            border: 3px solid transparent; background-clip: padding-box;
-        }
-        .notice-bar::before {
-            content: ''; position: absolute; top: -3px; bottom: -3px; left: -3px; right: -3px;
-            z-index: -1; border-radius: 25px; background: linear-gradient(to right, #ff416c, #ff4b2b, #00c6ff, #0072ff);
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            padding: 12px; text-align: center; border-radius: 10px; font-weight: bold; font-size: 14px;
         }
 
         /* --- ভিডিও গ্রিড --- */
-        main { padding: 20px 15px; }
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 15px; }
+        main { padding: 15px; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
         
-        .video-card { background-color: #111; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; position: relative; border: 1px solid #333; }
-        .video-card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.5); border-color: #555; }
+        .video-card { background-color: #111; border-radius: 8px; overflow: hidden; border: 1px solid #333; position: relative; cursor: pointer; }
+        .video-card img { width: 100%; height: 110px; object-fit: cover; }
         
-        .video-card img { width: 100%; height: 110px; object-fit: cover; display: block; }
-        .play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 110px; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.2s; }
-        .video-card:hover .play-overlay { opacity: 1; }
-        .play-icon { font-size: 40px; color: #e53935; }
-        
-        .video-info { padding: 10px; }
-        .video-title { font-size: 14px; margin-bottom: 5px; color: #eee; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 36px; font-weight: 500;}
+        .video-info { padding: 8px; }
+        .video-title { font-size: 13px; font-weight: 500; height: 36px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 
-        /* --- মানবিক যাচাই পপআপ (মডেল) --- */
-        .modal-overlay { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; }
-        
-        .modal-content { 
-            border: 3px solid #b71c1c; border-radius: 8px; padding: 30px; 
-            background-color: #1a1a1a; text-align: center; width: 90%; max-width: 400px; 
-            box-shadow: 0 0 15px rgba(183, 28, 28, 0.7); 
-        }
-        .close-modal { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; line-height: 0.5;}
-        .close-modal:hover { color: white; }
+        .play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 110px; background: rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; }
+        .play-icon { font-size: 30px; color: white; opacity: 0.8; }
 
-        .modal-content h2 { margin: 0 0 15px 0; font-size: 22px; color: #ff5252; }
-        .modal-content p { font-size: 14px; color: #ccc; margin-bottom: 20px; }
+        /* --- ভিডিও প্লেয়ার --- */
+        #video-player-section { display: none; padding: 15px; text-align: center; }
+        .video-container { max-width: 100%; background: #000; border: 1px solid #444; border-radius: 8px; overflow: hidden; }
+        video { width: 100%; height: auto; outline: none; }
+        #back-btn { margin-top: 20px; background: #333; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
 
-        /* চেক বক্স এলাকা */
-        .verify-box { background-color: #fff; color: #000; padding: 15px; display: inline-block; border-radius: 4px; margin-bottom: 25px; font-weight: bold; font-size: 16px; width: 70%;}
-        .verify-box input { margin-right: 10px; transform: scale(1.3); vertical-align: middle;}
-
-        /* ডায়নামিক অফার ব্লক */
-        .dynamic-offer-block { border-top: 1px solid #333; padding-top: 15px; }
-        .dynamic-offer-block p { color: #ff8a80; font-weight: bold; margin-bottom: 10px; font-size: 13px;}
-        .offer-btn { padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; margin: 5px; font-weight: bold; font-size: 14px; transition: background 0.3s; width: 85%; max-width: 230px; }
-        .install-btn { background-color: #d32f2f; color: white; } 
-        .install-btn:hover { background-color: #b71c1c; }
-        
-        #waiting-message { display: none; color: #ff4b5c; font-weight: bold; padding: 10px; border: 1px solid #ff4b5c; border-radius: 4px; margin-top: 10px;}
-
-        /* --- ভিডিও প্লেয়ার এলাকা (লোকাল ভিডিওর জন্য আপডেট করা) --- */
-        #video-player-section { display: none; padding: 20px; text-align: center; }
-        .video-container { position: relative; max-width: 960px; margin: 0 auto; background: #000; border-radius: 8px; border: 2px solid #333; line-height: 0;}
-        
-        /* HTML5 ভিডিও স্টাইল */
-        #main-video-player { width: 100%; height: auto; max-height: 540px; outline: none; border-radius: 8px;}
-
-        #back-to-grid { margin-top: 20px; background: #444; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;}
-
-        /* --- টাইমার পেজের স্টাইল --- */
-        .timer-page { background-color: #000; color: #fff; font-family: Arial, sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
-        .timer-box { border: 2px solid #ff4b5c; padding: 40px; border-radius: 10px; background: #111; }
-        #time-display { font-size: 60px; color: #ff4b5c; font-weight: bold; margin: 20px 0; }
-        .timer-title { font-size: 24px; color: #ff5252; margin-bottom: 10px; }
-        .timer-text { font-size: 16px; color: #ccc; margin-bottom: 30px; }
-        #back-btn { background: #e53935; color: white; border: none; padding: 15px 30px; border-radius: 5px; font-size: 18px; cursor: pointer; display: none; }
-        #back-btn:hover { background: #b71c1c; }
+        /* --- ভেরিফিকেশন পপআপ --- */
+        .modal-overlay { display: none; position: fixed; z-index: 999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+        .modal-content { background: #1a1a1a; padding: 25px; border-radius: 10px; text-align: center; width: 85%; max-width: 350px; border: 2px solid #e53935; }
+        .verify-box { background: #fff; color: #000; padding: 15px; margin: 20px 0; border-radius: 5px; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; }
+        .verify-box input { transform: scale(1.5); }
     </style>
 </head>
 <body>
-    <!-- ১. সাইট হেডার -->
+
     <header>
         <h1>থ্রিডি ভি-টিউব প্রো</h1>
-        <div class="header-right">
-            <button class="icon-btn">🔍</button>
-            <button class="icon-btn">☰</button>
-        </div>
+        <div style="font-size: 20px;">🔍 ☰</div>
     </header>
 
-    <!-- ২. নোটিশ ব্যানার -->
     <div class="notice-container">
-        <div class="notice-bar">২৪ ঘন্টার জন্য অ্যাড-ফ্রি প্রিমিয়াম ভিডিও দেখুন ৬০ সেকেন্ড এর এড দেখে </div>
+        <div class="notice-bar">২৪ ঘন্টার জন্য অ্যাড-ফ্রি ভিডিও দেখতে বক্সে টিক দিন!</div>
     </div>
 
-    <!-- ৩. মূল কন্টেন্ট (ভিডিও গ্রিড) -->
+    <!-- ভিডিও লিস্ট এরিয়া -->
     <main id="main-area">
         <div class="video-grid" id="video-container">
-            <p style="color: #888; text-align: center; grid-column: 1/-1; padding: 30px;">ভিডিও লোড হচ্ছে...</p>
+            <p style="text-align: center; width: 100%; padding: 50px;">ভিডিও লোড হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...</p>
         </div>
     </main>
 
-    <!-- ৪. ভিডিও প্লেয়ার এলাকা (HTML5 Player) -->
+    <!-- প্লেয়ার এরিয়া -->
     <section id="video-player-section">
         <div class="video-container">
-            <!-- HTML5 Video Tag -->
-            <video id="main-video-player" controls controlsList="nodownload">
-                আপনার ব্রাউজার এই ভিডিও ট্যাগ সমর্থন করে না।
-            </video>
+            <video id="main-video-player" controls controlsList="nodownload"></video>
         </div>
-        <button id="back-to-grid">⬅️ সমস্ত ভিডিওতে ফিরে যান</button>
+        <button id="back-btn" onclick="goBack()">⬅️ ব্যাকে যান</button>
     </section>
 
-    <!-- ৫. মানবিক যাচাই ও অফার পপআপ -->
+    <!-- ভেরিফিকেশন পপআপ -->
     <div id="verificationModal" class="modal-overlay">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2>Verify you are human</h2>
-            <p>ভিডিওটি দেখার আগে অনুগ্রহ করে প্রমাণ করুন যে আপনি রোবট নন।</p>
-            
+            <h2 style="color: #ff5252; margin-top: 0;">মানবিক যাচাই</h2>
+            <p>ভিডিওটি চালু করতে নিচের বক্সে টিক দিন</p>
             <div class="verify-box">
-                <input type="checkbox" id="humanCheck">
+                <input type="checkbox" id="humanCheck" onclick="verifyHuman()">
                 <label for="humanCheck">I am not a robot</label>
             </div>
-            
-            <div class="dynamic-offer-block" id="offer-area">
-                <p>এগিয়ে যেতে নিচের বাটনটি ক্লিক করুন এবং ৬০ সেকেন্ড অপেক্ষা করুন:</p>
-                <div id="offer-buttons-container">
-                    <span id="offer-loading">অফার লোড হচ্ছে...</span>
-                </div>
-            </div>
-            <div id="waiting-message">অন্য ট্যাবে অফারটি সম্পন্ন হচ্ছে... অফার সম্পূর্ণ হলে এই ট্যাবটি অটোমেটিক্যালি চালু হবে।</div>
+            <button onclick="closeModal()" style="background: none; border: none; color: #888; cursor: pointer;">বন্ধ করুন</button>
         </div>
     </div>
 
@@ -149,88 +88,106 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
-    <!-- ৬. JavaScript লজিক (লোকাল ভিডিওর জন্য পরিবর্তিত) -->
     <script>
-        // --- ফায়ারবেস কনফিগেশন ---
-        // আপনার প্রোজেক্টের কনফিগ এখানে দিন (যদি আগেরটি কাজ না করে)
+        // ১. আপনার দেওয়া কনফিগারেশন
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_MESSAGING_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyArUnLdrmx0d1hSc05o7H2QpediJAarIv8",
+            authDomain: "dhotmovie-7e866.firebaseapp.com",
+            projectId: "dhotmovie-7e866",
+            storageBucket: "dhotmovie-7e866.firebasestorage.app",
+            messagingSenderId: "180510780394",
+            appId: "1:180510780394:web:3b80f5f43b78375436e093",
+            measurementId: "G-EFTD6TJ43J"
         };
 
+        // ২. ফায়ারবেস ইনিশিয়ালাইজ
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
         const db = firebase.firestore();
 
-        // --- গ্লোবাল ভেরিয়েবল ---
-        let currentVideoUrlToPlay = null; // আইডি এর বদলে সরাসরি URL সেভ করব
-        let offerCheckInterval = null;
-        const modal = document.getElementById('verificationModal');
-        const humanCheck = document.getElementById('humanCheck');
-        const offerContainer = document.getElementById('offer-buttons-container');
-        const waitingMessage = document.getElementById('waiting-message');
-        const mainArea = document.getElementById('main-area');
-        const videoPlayerSection = document.getElementById('video-player-section');
-        const html5Player = document.getElementById('main-video-player'); // ভিডিও এলিমেন্ট
+        let selectedVideoUrl = "";
 
-        const OFFER_COMPLETED_KEY = 'greedyflix_offer_done';
-        const COMPLETED_TIMESTAMP_KEY = 'greedyflix_offer_time';
+        // ৩. ভিডিও ডাটা লোড করা
+        function fetchVideos() {
+            const container = document.getElementById('video-container');
 
-        document.addEventListener("DOMContentLoaded", () => {
-            if (window.location.search.includes('timer=page')) {
-                runTimerPage();
-                return;
-            }
-
-            loadVideosFromFirestore();
-            loadDynamicOffers();
-
-            if (isOfferRecentlyCompleted()) {
-                humanCheck.checked = true; 
-            }
-        });
-
-        function isOfferRecentlyCompleted() {
-            const completed = localStorage.getItem(OFFER_COMPLETED_KEY);
-            const timestamp = localStorage.getItem(COMPLETED_TIMESTAMP_KEY);
-            
-            if (completed && timestamp) {
-                const now = new Date().getTime();
-                const hoursPassed = (now - parseInt(timestamp)) / (1000 * 60 * 60);
-                return hoursPassed < 24;
-            }
-            return false;
-        }
-
-        // ১. Firestore থেকে ভিডিও লোড করা
-        function loadVideosFromFirestore() {
-            const videoContainer = document.getElementById('video-container');
             db.collection("videos").get().then((querySnapshot) => {
-                videoContainer.innerHTML = '';
+                container.innerHTML = ""; // লোডিং টেক্সট মুছুন
+
                 if (querySnapshot.empty) {
-                    videoContainer.innerHTML = '<p style="color: #888; text-align: center; grid-column: 1/-1;">কোনো ভিডিও পাওয়া যায়নি。</p>';
+                    container.innerHTML = "<p>কোনো ভিডিও পাওয়া যায়নি।</p>";
                     return;
                 }
-                querySnapshot.forEach((doc) => {
-                    const video = doc.data();
-                    const videoCard = document.createElement('div');
-                    videoCard.className = 'video-card';
-                    
-                    // ভিডিও কার্ডে ক্লিক করলে সরাসরি URL পাস হবে
-                    videoCard.onclick = () => tryPlayVideo(video.videoUrl);
 
-                    videoCard.innerHTML = `
-                        <img src="${video.thumbnail}" alt="${video.title}" onerror="this.src='https://via.placeholder.com/165x110?text=No+Image'">
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const card = document.createElement('div');
+                    card.className = 'video-card';
+                    card.onclick = () => openVideo(data.videoUrl);
+                    
+                    card.innerHTML = `
+                        <img src="${data.thumbnail}" onerror="this.src='https://via.placeholder.com/160x110?text=No+Thumb'">
                         <div class="play-overlay"><div class="play-icon">▶️</div></div>
                         <div class="video-info">
-                            <div class="video-title">${video.title}</div>
+                            <div class="video-title">${data.title}</div>
                         </div>
                     `;
-                    videoContainer.appendChild(videoCard);
+                    container.appendChild(card);
                 });
-            }).catch((error
+            }).catch((error) => {
+                console.error("Error fetching data: ", error);
+                container.innerHTML = "<p>ডাটাবেস কানেকশন এরর!</p>";
+            });
+        }
+
+        // ৪. ভিডিও ওপেন করার লজিক
+        function openVideo(url) {
+            selectedVideoUrl = url;
+            // ভেরিফিকেশন চেক
+            if (localStorage.getItem('user_verified') === 'true') {
+                startPlayback(url);
+            } else {
+                document.getElementById('verificationModal').style.display = 'flex';
+            }
+        }
+
+        // ৫. ভেরিফিকেশন ফাংশন
+        function verifyHuman() {
+            if (document.getElementById('humanCheck').checked) {
+                setTimeout(() => {
+                    localStorage.setItem('user_verified', 'true');
+                    document.getElementById('verificationModal').style.display = 'none';
+                    startPlayback(selectedVideoUrl);
+                }, 500);
+            }
+        }
+
+        // ৬. প্লেয়ার চালু করা
+        function startPlayback(url) {
+            document.getElementById('main-area').style.display = 'none';
+            document.getElementById('video-player-section').style.display = 'block';
+            const videoElement = document.getElementById('main-video-player');
+            videoElement.src = url;
+            videoElement.play();
+        }
+
+        // ৭. ব্যাকে আসা
+        function goBack() {
+            const videoElement = document.getElementById('main-video-player');
+            videoElement.pause();
+            document.getElementById('video-player-section').style.display = 'none';
+            document.getElementById('main-area').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('verificationModal').style.display = 'none';
+            document.getElementById('humanCheck').checked = false;
+        }
+
+        // পেজ লোড হলে ভিডিও ডাটা আনো
+        window.onload = fetchVideos;
+    </script>
+</body>
+</html>
+
