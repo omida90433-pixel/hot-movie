@@ -163,14 +163,35 @@
             }
         }
 
-        // ৬. প্লেয়ার চালু করা
-        function startPlayback(url) {
-            document.getElementById('main-area').style.display = 'none';
-            document.getElementById('video-player-section').style.display = 'block';
-            const videoElement = document.getElementById('main-video-player');
-            videoElement.src = url;
-            videoElement.play();
-        }
+// ৬. প্লেয়ার চালু করার ফাংশন (Pixeldrain সাপোর্ট সহ)
+function startPlayback(url) {
+    document.getElementById('main-area').style.display = 'none';
+    document.getElementById('video-player-section').style.display = 'block';
+    
+    const videoContainer = document.querySelector('.video-container');
+
+    // ১. Pixeldrain লিঙ্ক ঠিক করা
+    // যদি লিঙ্ক এমন হয়: https://pixeldrain.com/u/xxxxxx
+    // ওটাকে বানাতে হবে: https://pixeldrain.com/api/file/xxxxxx
+    if (url.includes('pixeldrain.com/u/')) {
+        url = url.replace('pixeldrain.com/u/', 'pixeldrain.com/api/file/');
+    }
+
+    // ২. প্লেয়ার সেটআপ
+    videoContainer.innerHTML = `
+        <video id="main-video-player" controls autoplay controlsList="nodownload" style="width:100%; border-radius: 8px;">
+            <source src="${url}" type="video/mp4">
+            আপনার ব্রাউজার এই ভিডিও সমর্থন করে না।
+        </video>
+    `;
+
+    // ৩. ভিডিও লোড এবং প্লে নিশ্চিত করা
+    const player = document.getElementById('main-video-player');
+    player.load();
+    player.play().catch(error => {
+        console.log("Autoplay blocked. User must click play.");
+    });
+}
 
         // ৭. ব্যাকে আসা
         function goBack() {
