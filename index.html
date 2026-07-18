@@ -7,42 +7,38 @@
     <title>থ্রিডি ভি-টিউব প্রো - প্রিমিয়াম</title>
     
     <style>
-        /* --- স্টাইল --- */
         body { background-color: #000; color: #fff; font-family: Arial, sans-serif; margin: 0; padding: 0; }
         header { background-color: #1a1a1a; padding: 15px; text-align: center; border-bottom: 2px solid #e53935; }
         header h1 { margin: 0; color: #e53935; font-size: 22px; }
 
-        .notice-bar { background: linear-gradient(90deg, #ff416c, #ff4b2b); padding: 12px; text-align: center; font-weight: bold; font-size: 14px; margin: 10px; border-radius: 8px; }
-
         /* ভিডিও গ্রিড */
         main { padding: 15px; }
         .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-        .video-card { background: #111; border-radius: 8px; overflow: hidden; border: 1px solid #333; cursor: pointer; position: relative; }
+        .video-card { background: #111; border-radius: 8px; overflow: hidden; border: 1px solid #333; cursor: pointer; }
         .video-card img { width: 100%; height: 110px; object-fit: cover; }
-        .video-info { padding: 8px; font-size: 13px; height: 36px; overflow: hidden; }
+        .video-info { padding: 8px; font-size: 13px; font-weight: bold; }
 
         /* প্লেয়ার এরিয়া */
         #player-section { display: none; padding: 15px; text-align: center; }
-        .video-box { width: 100%; max-width: 800px; margin: 0 auto; background: #000; border: 1px solid #444; }
-        video, iframe { width: 100%; height: 300px; }
-        .back-btn { margin-top: 20px; background: #333; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        .video-box { width: 100%; max-width: 800px; margin: 0 auto; background: #000; border: 2px solid #333; min-height: 250px; }
+        video, iframe { width: 100%; height: 300px; border: none; }
+        .back-btn { margin-top: 20px; background: #e53935; color: #fff; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-weight: bold; }
 
-        /* ভেরিফিকেশন পপআপ */
-        .modal { display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
-        .modal-content { background: #1a1a1a; padding: 30px; border-radius: 12px; text-align: center; width: 85%; max-width: 400px; border: 2px solid #e53935; }
-        .offer-btn { background: #e53935; color: white; border: none; padding: 15px 25px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 20px; width: 100%; }
-        #waiting-msg { display: none; color: #ffeb3b; margin-top: 20px; font-weight: bold; }
+        /* পপআপ */
+        .modal { display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+        .modal-content { background: #1a1a1a; padding: 25px; border-radius: 12px; text-align: center; width: 85%; max-width: 400px; border: 2px solid #e53935; }
+        .offer-link { display: block; background: #e53935; color: white; text-decoration: none; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 8px; margin-top: 20px; }
+        #waiting-msg { display: none; color: #ffeb3b; margin-top: 15px; font-weight: bold; font-size: 14px; }
 
-        /* টাইমার পেজ স্টাইল */
-        #timer-body { display: none; text-align: center; padding-top: 100px; }
-        .timer-circle { font-size: 60px; color: #ff4b2b; font-weight: bold; margin: 20px; }
+        /* টাইমার স্ক্রিন */
+        #timer-ui { display: none; text-align: center; padding-top: 80px; }
+        .timer-val { font-size: 70px; color: #ff4b2b; font-weight: bold; margin: 20px; }
     </style>
 </head>
 <body>
 
-<div id="main-site-ui">
+<div id="main-site">
     <header><h1>থ্রিডি ভি-টিউব প্রো</h1></header>
-    <div class="notice-bar">ভিডিও দেখতে হলে ৬০ সেকেন্ডের এড দেখতে হবে (২৪ ঘন্টা ফ্রি)</div>
 
     <main id="grid-area">
         <div class="video-grid" id="video-container">
@@ -52,30 +48,30 @@
 
     <section id="player-section">
         <div class="video-box" id="video-wrapper"></div>
-        <button class="back-btn" onclick="goBack()">⬅️ গ্যালারিতে ফিরে যান</button>
+        <button class="back-btn" onclick="location.reload()">⬅️ গ্যালারিতে ফিরে যান</button>
     </section>
 
     <!-- পপআপ -->
     <div id="verificationModal" class="modal">
         <div class="modal-content">
-            <h2 style="color:#ff5252;">মানবিক যাচাই!</h2>
+            <h2 style="color:#ff5252;">Verify you are human</h2>
             <p>ভিডিওটি আনলক করতে নিচের বাটনে ক্লিক করে ৬০ সেকেন্ড অপেক্ষা করুন।</p>
-            <button class="offer-btn" onclick="startOffer()">অফারটি চালু করুন</button>
-            <div id="waiting-msg">নতুন ট্যাবে টাইমার চলছে... ফিরে আসবেন না!</div>
+            
+            <!-- সরাসরি বাটন এর জায়গায় লিঙ্ক ব্যবহার করা হয়েছে পপআপ ব্লক এড়াতে -->
+            <a href="javascript:void(0)" class="offer-link" id="offerBtn" onclick="openOffer()">এখানে ক্লিক করে অফার দেখুন</a>
+            
+            <div id="waiting-msg">নতুন ট্যাবে টাইমার চলছে... ভেরিফিকেশন না হওয়া পর্যন্ত এই ট্যাব বন্ধ করবেন না।</div>
         </div>
     </div>
 </div>
 
-<!-- টাইমার UI (একই ফাইলে আলাদা অংশ) -->
-<div id="timer-body">
-    <h1 style="color:#e53935;">অফার ভেরিফিকেশন</h1>
-    <p>অনুগ্রহ করে এই ট্যাবটি বন্ধ করবেন না।</p>
-    <div class="timer-circle" id="seconds">60</div>
-    <p id="timer-status">অপেক্ষা করুন...</p>
-    <button id="close-timer-btn" style="display:none; padding:15px; background:green; color:white; border:none; border-radius:5px;" onclick="window.close()">এখন এই ট্যাব বন্ধ করে মূল সাইটে যান</button>
+<!-- টাইমার UI -->
+<div id="timer-ui">
+    <h1 style="color:#e53935;">ভেরিফিকেশন চলছে...</h1>
+    <div class="timer-val" id="seconds">60</div>
+    <p>অনুগ্রহ করে ৬০ সেকেন্ড অপেক্ষা করুন। টাইমার শেষ হলে এই ট্যাবটি বন্ধ করে মূল সাইটে ফিরে যান।</p>
 </div>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
@@ -92,117 +88,110 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    let pendingVideoUrl = "";
-    const VERIFIED_KEY = "vtube_pro_verified";
-    const TIMER_DONE_KEY = "vtube_timer_complete";
+    let currentUrl = "";
+    const V_KEY = "v_verified_user";
+    const T_DONE = "v_timer_done";
 
-    // ২. চেক করা হচ্ছে এটা কি টাইমার পেজ কি না
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('timer')) {
-        document.getElementById('main-site-ui').style.display = 'none';
-        document.getElementById('timer-body').style.display = 'block';
-        runTimer();
+    // ২. টাইমার পেজ কি না চেক
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('start_timer')) {
+        document.getElementById('main-site').style.display = 'none';
+        document.getElementById('timer-ui').style.display = 'block';
+        startCountdown();
     } else {
         loadVideos();
     }
 
-    // ৩. ভিডিও লোড করা
+    // ৩. ভিডিও ডাটা আনা
     function loadVideos() {
         const container = document.getElementById('video-container');
-        db.collection("videos").get().then((querySnapshot) => {
+        db.collection("videos").get().then((snaps) => {
             container.innerHTML = "";
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
+            snaps.forEach((doc) => {
+                const v = doc.data();
                 const card = document.createElement('div');
                 card.className = 'video-card';
-                card.onclick = () => tryPlay(data.videoUrl);
-                card.innerHTML = `
-                    <img src="${data.thumbnail}">
-                    <div class="video-info">${data.title}</div>
-                `;
+                card.onclick = () => checkAccess(v.videoUrl);
+                card.innerHTML = `<img src="${v.thumbnail}"><div class="video-info">${v.title}</div>`;
                 container.appendChild(card);
             });
         });
     }
 
-    // ৪. ভিডিও প্লে করার চেষ্টা
-    function tryPlay(url) {
-        pendingVideoUrl = url;
-        const lastVerified = localStorage.getItem(VERIFIED_KEY);
-        const now = new Date().getTime();
+    // ৪. ভেরিফিকেশন চেক
+    function checkAccess(url) {
+        currentUrl = url;
+        const saved = localStorage.getItem(V_KEY);
+        const now = Date.now();
 
-        // ২৪ ঘন্টা চেক (২৪ * ৬০ * ৬০ * ১০০০ মিলি সেকেন্ড)
-        if (lastVerified && (now - lastVerified < 86400000)) {
-            startVideo(url);
+        if (saved && (now - saved < 86400000)) {
+            playVideo(url);
         } else {
             document.getElementById('verificationModal').style.display = 'flex';
         }
     }
 
-    // ৫. অফার শুরু করা (নতুন ট্যাব খোলা)
-    function startOffer() {
-        localStorage.removeItem(TIMER_DONE_KEY); // আগের ডাটা মোছা
-        document.querySelector('.offer-btn').style.display = 'none';
+    // ৫. অফার লিঙ্ক ওপেন করা
+    function openOffer() {
+        localStorage.removeItem(T_DONE);
+        document.getElementById('offerBtn').style.display = 'none';
         document.getElementById('waiting-msg').style.display = 'block';
 
-        // বর্তমান লিঙ্কেই টাইমার প্যারামিটার দিয়ে নতুন ট্যাব খোলা
-        const timerUrl = window.location.origin + window.location.pathname + "?timer=true";
-        window.open(timerUrl, '_blank');
-
-        // চেক করা শুরু করো কখন টাইমার শেষ হবে
-        const checkInterval = setInterval(() => {
-            if (localStorage.getItem(TIMER_DONE_KEY) === 'true') {
-                clearInterval(checkInterval);
-                localStorage.setItem(VERIFIED_KEY, new Date().getTime()); // ২৪ ঘন্টা শুরু
-                document.getElementById('verificationModal').style.display = 'none';
-                startVideo(pendingVideoUrl);
-            }
-        }, 1000);
-    }
-
-    // ৬. টাইমার চালানো (নতুন ট্যাবে)
-    function runTimer() {
-        let sec = 60;
-        const timerText = document.getElementById('seconds');
-        const timerStatus = document.getElementById('timer-status');
+        // বর্তমান সাইটের লিঙ্কেই টাইমার প্যারামিটার দিয়ে নতুন ট্যাব খোলা
+        const tUrl = window.location.href.split('?')[0] + "?start_timer=true";
+        const newTab = window.open(tUrl, '_blank');
         
-        const countdown = setInterval(() => {
-            sec--;
-            timerText.innerText = sec;
-            if (sec <= 0) {
-                clearInterval(countdown);
-                localStorage.setItem(TIMER_DONE_KEY, 'true'); // মূল ট্যাবকে জানানো
-                timerStatus.innerHTML = "✅ ভেরিফিকেশন সফল!";
-                document.getElementById('close-timer-btn').style.display = 'inline-block';
-                timerText.style.color = "green";
+        if(!newTab) {
+            alert("আপনার ব্রাউজারের Popup ব্লকার অফার লিঙ্কটি আটকে দিয়েছে। দয়া করে সেটি এলাউ করুন।");
+        }
+
+        // মূল ট্যাব প্রতি ১ সেকেন্ড পর চেক করবে টাইমার শেষ হয়েছে কিনা
+        const checker = setInterval(() => {
+            if (localStorage.getItem(T_DONE) === 'true') {
+                clearInterval(checker);
+                localStorage.setItem(V_KEY, Date.now());
+                document.getElementById('verificationModal').style.display = 'none';
+                playVideo(currentUrl);
             }
         }, 1000);
     }
 
-    // ৭. ভিডিও প্লেয়ার চালু করা (Universal Player)
-    function startVideo(url) {
+    // ৬. টাইমার চালানো (টাইমার ট্যাবে)
+    function startCountdown() {
+        let time = 60;
+        const txt = document.getElementById('seconds');
+        const count = setInterval(() => {
+            time--;
+            txt.innerText = time;
+            if (time <= 0) {
+                clearInterval(count);
+                localStorage.setItem(T_DONE, 'true');
+                alert("ভেরিফিকেশন সফল! এখন মূল ট্যাবে ফিরে গিয়ে ভিডিওটি দেখুন।");
+                window.close();
+            }
+        }, 1000);
+    }
+
+    // ৭. ভিডিও প্লে করা
+    function playVideo(url) {
         document.getElementById('grid-area').style.display = 'none';
         document.getElementById('player-section').style.display = 'block';
-        const wrapper = document.getElementById('video-wrapper');
+        const wrap = document.getElementById('video-wrapper');
 
-        let finalUrl = url;
+        let playUrl = url;
+        // Pixeldrain অটো কারেকশন
         if (url.includes('pixeldrain.com/u/')) {
-            finalUrl = url.replace('/u/', '/api/file/');
+            playUrl = url.replace('/u/', '/api/file/');
+            wrap.innerHTML = `<video src="${playUrl}" controls autoplay style="width:100%"></video>`;
+        } 
+        // Direct MP4 বা অন্য কিছু
+        else if (url.includes('.mp4')) {
+            wrap.innerHTML = `<video src="${url}" controls autoplay style="width:100%"></video>`;
         }
-
-        // যদি ভিডিও সরাসরি লিঙ্ক হয়
-        if (finalUrl.includes('.mp4') || finalUrl.includes('pixeldrain')) {
-            wrapper.innerHTML = `<video src="${finalUrl}" controls autoplay></video>`;
-        } else {
-            // অন্য সব লিঙ্কের জন্য Iframe
-            wrapper.innerHTML = `<iframe src="${finalUrl}" frameborder="0" allowfullscreen></iframe>`;
+        // ইউটিউব বা অন্য এম্বেড সাইট হলে
+        else {
+            wrap.innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
         }
-    }
-
-    function goBack() {
-        document.getElementById('player-section').style.display = 'none';
-        document.getElementById('grid-area').style.display = 'block';
-        document.getElementById('video-wrapper').innerHTML = "";
     }
 </script>
 
