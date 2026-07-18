@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>থ্রিডি ভি-টিউব প্রো - হট ভিডিও</title>
+    
+    <!-- CSS স্টাইল (একই ডিজাইন রাখা হয়েছে) -->
+    <style>
+        body { background-color: #000000; color: #ffffff; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; margin: 0; padding: 0; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        header { background-color: #1a1a1a; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; }
+        .header-left { display: flex; align-items: center; gap: 12px; }
+        .logo-text { color: #e53935; font-size: 18px; font-weight: 700; letter-spacing: -0.5px;}
+        .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #f44336, #2196f3, #4caf50); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; color: white; font-size: 18px; }
+        .header-right { display: flex; align-items: center; gap: 18px; }
+        .icon-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; padding: 0;}
+        .notice-container { padding: 20px 15px 10px 15px; }
+        .notice-bar { background-color: #111; color: #fff; padding: 16px; text-align: center; border-radius: 30px; font-weight: 600; font-size: 16px; position: relative; border: 3px solid transparent; background-clip: padding-box; }
+        .notice-bar::before { content: ''; position: absolute; top: -3px; bottom: -3px; left: -3px; right: -3px; z-index: -1; border-radius: 30px; background: linear-gradient(to right, #ff416c, #ff4b2b, #00c6ff, #0072ff); }
+        .category-container { padding: 15px; display: flex; gap: 10px; }
+        .cat-btn { background-color: #111; color: #fff; border: 2px solid transparent; padding: 10px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s; position: relative; background-clip: padding-box; flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .cat-btn::before { content: ''; position: absolute; top: -2px; bottom: -2px; left: -2px; right: -2px; z-index: -1; border-radius: 30px; }
+        .cat-btn.rainbow-border::before { background: linear-gradient(to right, #f44336, #2196f3, #4caf50); }
+        .cat-btn.blue-border::before { background: #2196f3; }
+        .cat-icon { font-size: 16px; }
+        main { padding: 10px 15px 80px 15px; }
+        .video-card-wrapper { background-color: #111; border-radius: 8px; overflow: hidden; position: relative; border: 3px solid transparent; background-clip: padding-box; margin-bottom: 20px; }
+        .video-card-wrapper::before { content: ''; position: absolute; top: -3px; bottom: -3px; left: -3px; right: -3px; z-index: -1; border-radius: 8px; background: linear-gradient(to right, #f44336, #2196f3, #4caf50); }
+        .video-thumbnail-container { position: relative; width: 100%; aspect-ratio: 16/9; }
+        .video-thumbnail-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .thumb-watermark { position: absolute; bottom: 10px; right: 10px; font-size: 18px; font-weight: bold; color: rgba(255,255,255,0.7); font-family: sans-serif; }
+        .thumb-watermark span { color: #fff; }
+        .video-details { padding: 12px; background-color: #1a1a1a; }
+        .video-title { font-size: 15px; font-weight: 600; margin: 0 0 10px 0; color: #fff; line-height: 1.4; }
+        .video-stats { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #888; border-top: 1px solid #333; padding-top: 8px; }
+        .stat-item { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+        .stat-icon { font-size: 14px; }
+        .stat-num { font-weight: bold; color: #fff; }
+        .mobile-tabs { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #1a1a1a; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; z-index: 1000; }
+        .tab-link { background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer; padding: 0;}
+        .tab-link.active { color: #fff; }
+        .tab-link.notif { position: relative; }
+        .tab-link.notif::after { content: '24'; position: absolute; top: -6px; right: -6px; background-color: #e53935; color: white; font-size: 9px; padding: 2px 5px; border-radius: 50%; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="logo-icon">▶</div>
+            <span class="logo-text">থ্রিডি ভি-টিউব প্রো</span>
+        </div>
+        <div class="header-right">
+            <button class="icon-btn">🔍</button>
+            <button class="icon-btn">☰</button>
+        </div>
+    </header>
+
+    <div class="notice-container">
+        <div class="notice-bar">২৪ ঘন্টার জন্য অ্যাড-ফ্রি প্রিমিয়াম ভিডিও দেখতে সাইন আপ করুন </div>
+    </div>
+
+    <div class="category-container">
+        <button class="cat-btn blue-border">ট্রেন্ডিং ভিডিও🎬</button>
+        <button class="cat-btn blue-border">Sexy</button>
+        <button class="cat-btn blue-border">দেশি মাল👄</button>
+
+    </div>
+
+    <main>
+        <div class="video-card-wrapper">
+            <div class="video-thumbnail-container">
+                <img src="https://i.imgur.com/K3yS5aR.jpg" alt="Cute girl video thumbnail" id="video-thumb">
+                <div class="thumb-watermark">babes<span>/FREE</span></div>
+            </div>
+            <div class="video-details">
+                <p class="video-title" id="video-title">কিউট মেয়েটাকে খেয়ে দিল</p>
+                
+                <div class="video-stats">
+                    <div class="stat-item" onclick="incrementStat('views')">
+                        <span class="stat-icon">👁️</span>
+                        <span class="stat-num" id="stat-views">...</span>
+                        <span class="stat-label">ভিউস</span>
+                    </div>
+                    <div class="stat-item" onclick="incrementStat('likes')">
+                        <span class="stat-icon">❤️</span>
+                        <span class="stat-num" id="stat-likes">...</span>
+                        <span class="stat-label">লাইক</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">💬</span>
+                        <span class="stat-num" id="stat-comments">...</span>
+                        <span class="stat-label">কমেন্ট</span>
+                    </div>
+                    <div class="stat-item" onclick="incrementStat('shares')">
+                        <span class="stat-icon">🔄</span>
+                        <span class="stat-num" id="stat-shares">...</span>
+                        <span class="stat-label">শেয়ার</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mobile-tabs">
+        <button class="tab-link active">⬅️</button>
+        <button class="tab-link">➡️</button>
+        <button class="tab-link">🏠</button>
+        <button class="tab-link">⭐</button>
+        <button class="tab-link">☰</button>
+    </footer>
+
+    <!-- Firebase SDKs (CDN থেকে লোড করা হচ্ছে) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        // --- ফায়ারবেস কনফিগারেশন ---
+        // !!! গুরুত্বপূর্ণ: আপনার Firebase প্রজেক্ট সেটিংস থেকে এই তথ্যগুলি এখানে বসাতে হবে !!!
+        // Firebase Console > Project Settings > General > Your apps > Firebase SDK snippet > Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyArUnLdrmx0d1hSc05o7H2QpediJAarIv8",
+            authDomain: "dhotmovie-7e866.firebaseapp.com",
+            projectId: "dhotmovie-7e866",
+            storageBucket: "dhotmovie-7e866.firebasestorage.app",
+            messagingSenderId: "180510780394",
+            appId: "1:180510780394:web:3b80f5f43b78375436e093"
+        };
+
+        // ফায়ারবেস ইনিশিয়ালাইজ করুন
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        // --- মূল লজিক: Firestore থেকে ডেটা আনা এবং আপডেট করা ---
+        
+        // আমরা 'videos' কালেকশন থেকে 'main_video' ডকুমেন্টটি পড়ছি
+        const videoRef = db.collection("videos").doc("main_video");
+
+        // পেজ লোড হলেই ডেটাবেস থেকে তথ্য নিয়ে আসুন
+        document.addEventListener("DOMContentLoaded", () => {
+            setupRealtimeListener();
+        });
+
+        // রিয়েলটাইম লিসেনার (ডেটা পরিবর্তন হলে অটোমেটিক আপডেট হবে)
+        function setupRealtimeListener() {
+            videoRef.onSnapshot((doc) => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    
+                    // HTML উপাদানগুলো আপডেট করুন
+                    document.getElementById('stat-views').textContent = data.views ? data.views.toLocaleString() : 0;
+                    document.getElementById('stat-likes').textContent = data.likes ? data.likes.toLocaleString() : 0;
+                    document.getElementById('stat-comments').textContent = data.comments ? data.comments.toLocaleString() : 0;
+                    document.getElementById('stat-shares').textContent = data.shares ? data.shares.toLocaleString() : 0;
+                    
+                    // আপনি চাইলে টাইটেল বা থাম্বনেইলও এখান থেকে কন্ট্রোল করতে পারেন
+                    if(data.title) document.getElementById('video-title').textContent = data.title;
+                    if(data.thumbnail_url) document.getElementById('video-thumb').src = data.thumbnail_url;
+
+                } else {
+                    console.error("No such document! Creating default...");
+                    // যদি ডকুমেন্ট না থাকে, তবে ডিফল্ট ভ্যালু দিয়ে তৈরি করুন
+                    videoRef.set({
+                        title: "কিউট মেয়েটাকে খেয়ে দিল",
+                        views: 37,
+                        likes: 4,
+                        comments: 0,
+                        shares: 0
+                    });
+                }
+            }, (error) => {
+                console.error("Error getting real-time data:", error);
+            });
+        }
+
+        // ফাংশন: ক্লিক করলে সংখ্যা বাড়ানো (লাইক, শেয়ার, ভিউ)
+        function incrementStat(statName) {
+            // ফায়ারবেস ট্রানজেকশন ব্যবহার করে নিরাপদে কাউন্ট বাড়ান
+            db.runTransaction((transaction) => {
+                return transaction.get(videoRef).then((doc) => {
+                    if (!doc.exists) {
+                        throw "Document does not exist!";
+                    }
+                    // বর্তমান মানের সাথে ১ যোগ করুন
+                    const currentVal = doc.data()[statName] || 0;
+                    transaction.update(videoRef, { [statName]: currentVal + 1 });
+                });
+            }).then(() => {
+                console.log(`${statName} successfully incremented!`);
+            }).catch((err) => {
+                console.error("Transaction failed: ", err);
+            });
+        }
+    </script>
+</body>
+</html>
