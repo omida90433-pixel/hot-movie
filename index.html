@@ -5,118 +5,152 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>থ্রিডি ভি-টিউব প্রো - হট ভিডিও</title>
     
-    <!-- CSS স্টাইল (একই ডিজাইন রাখা হয়েছে) -->
+    <!-- CSS স্টাইল (একীভূত) -->
     <style>
-        body { background-color: #000000; color: #ffffff; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; margin: 0; padding: 0; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
-        header { background-color: #1a1a1a; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; }
-        .header-left { display: flex; align-items: center; gap: 12px; }
-        .logo-text { color: #e53935; font-size: 18px; font-weight: 700; letter-spacing: -0.5px;}
-        .logo-icon { width: 36px; height: 36px; background: linear-gradient(135deg, #f44336, #2196f3, #4caf50); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; color: white; font-size: 18px; }
-        .header-right { display: flex; align-items: center; gap: 18px; }
-        .icon-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; padding: 0;}
-        .notice-container { padding: 20px 15px 10px 15px; }
-        .notice-bar { background-color: #111; color: #fff; padding: 16px; text-align: center; border-radius: 30px; font-weight: 600; font-size: 16px; position: relative; border: 3px solid transparent; background-clip: padding-box; }
-        .notice-bar::before { content: ''; position: absolute; top: -3px; bottom: -3px; left: -3px; right: -3px; z-index: -1; border-radius: 30px; background: linear-gradient(to right, #ff416c, #ff4b2b, #00c6ff, #0072ff); }
-        .category-container { padding: 15px; display: flex; gap: 10px; }
-        .cat-btn { background-color: #111; color: #fff; border: 2px solid transparent; padding: 10px 20px; border-radius: 30px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s; position: relative; background-clip: padding-box; flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; }
-        .cat-btn::before { content: ''; position: absolute; top: -2px; bottom: -2px; left: -2px; right: -2px; z-index: -1; border-radius: 30px; }
-        .cat-btn.rainbow-border::before { background: linear-gradient(to right, #f44336, #2196f3, #4caf50); }
-        .cat-btn.blue-border::before { background: #2196f3; }
-        .cat-icon { font-size: 16px; }
-        main { padding: 10px 15px 80px 15px; }
-        .video-card-wrapper { background-color: #111; border-radius: 8px; overflow: hidden; position: relative; border: 3px solid transparent; background-clip: padding-box; margin-bottom: 20px; }
-        .video-card-wrapper::before { content: ''; position: absolute; top: -3px; bottom: -3px; left: -3px; right: -3px; z-index: -1; border-radius: 8px; background: linear-gradient(to right, #f44336, #2196f3, #4caf50); }
-        .video-thumbnail-container { position: relative; width: 100%; aspect-ratio: 16/9; }
-        .video-thumbnail-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .thumb-watermark { position: absolute; bottom: 10px; right: 10px; font-size: 18px; font-weight: bold; color: rgba(255,255,255,0.7); font-family: sans-serif; }
-        .thumb-watermark span { color: #fff; }
-        .video-details { padding: 12px; background-color: #1a1a1a; }
-        .video-title { font-size: 15px; font-weight: 600; margin: 0 0 10px 0; color: #fff; line-height: 1.4; }
-        .video-stats { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #888; border-top: 1px solid #333; padding-top: 8px; }
-        .stat-item { display: flex; align-items: center; gap: 4px; cursor: pointer; }
-        .stat-icon { font-size: 14px; }
-        .stat-num { font-weight: bold; color: #fff; }
-        .mobile-tabs { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #1a1a1a; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #333; z-index: 1000; }
-        .tab-link { background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer; padding: 0;}
-        .tab-link.active { color: #fff; }
-        .tab-link.notif { position: relative; }
-        .tab-link.notif::after { content: '24'; position: absolute; top: -6px; right: -6px; background-color: #e53935; color: white; font-size: 9px; padding: 2px 5px; border-radius: 50%; font-weight: bold; }
+        /* --- গ্লোবাল স্টাইল (কালো থিম) --- */
+        body { background-color: #000000; color: #ffffff; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+
+        /* --- সাইট হেডার --- */
+        header { background-color: #1a1a1a; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
+        header h1 { margin: 0; color: #e53935; font-size: 20px; font-weight: 700; }
+        .header-right { display: flex; gap: 15px; }
+        .icon-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; }
+
+        /* --- নোটিশ ব্যানার --- */
+        .notice-container { padding: 15px; }
+        .notice-bar {
+            background-color: #111; color: #fff; padding: 15px; text-align: center;
+            border-radius: 25px; font-weight: 600; font-size: 15px; position: relative;
+            border: 3px solid transparent; background-clip: padding-box;
+        }
+        .notice-bar::before {
+            content: ''; position: absolute; top: -3px; bottom: -3px; left: -3px; right: -3px;
+            z-index: -1; border-radius: 25px; background: linear-gradient(to right, #ff416c, #ff4b2b, #00c6ff, #0072ff);
+        }
+
+        /* --- ভিডিও গ্রিড --- */
+        main { padding: 20px 15px; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 15px; }
+        
+        .video-card { background-color: #111; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; position: relative; border: 1px solid #333; }
+        .video-card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.5); border-color: #555; }
+        
+        .video-card img { width: 100%; height: 110px; object-fit: cover; display: block; }
+        .play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 110px; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.2s; }
+        .video-card:hover .play-overlay { opacity: 1; }
+        .play-icon { font-size: 40px; color: #e53935; }
+        
+        .video-info { padding: 10px; }
+        .video-title { font-size: 14px; margin-bottom: 5px; color: #eee; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 36px; font-weight: 500;}
+
+        /* --- মানবিক যাচাই পপআপ (মডেল) --- */
+        .modal-overlay { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center; }
+        
+        .modal-content { 
+            border: 3px solid #b71c1c; border-radius: 8px; padding: 30px; 
+            background-color: #1a1a1a; text-align: center; width: 90%; max-width: 400px; 
+            box-shadow: 0 0 15px rgba(183, 28, 28, 0.7); 
+        }
+        .close-modal { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; line-height: 0.5;}
+        .close-modal:hover { color: white; }
+
+        .modal-content h2 { margin: 0 0 15px 0; font-size: 22px; color: #ff5252; }
+        .modal-content p { font-size: 14px; color: #ccc; margin-bottom: 20px; }
+
+        /* চেক বক্স এলাকা */
+        .verify-box { background-color: #fff; color: #000; padding: 15px; display: inline-block; border-radius: 4px; margin-bottom: 25px; font-weight: bold; font-size: 16px; width: 70%;}
+        .verify-box input { margin-right: 10px; transform: scale(1.3); vertical-align: middle;}
+
+        /* ডায়নামিক অফার ব্লক */
+        .dynamic-offer-block { border-top: 1px solid #333; padding-top: 15px; }
+        .dynamic-offer-block p { color: #ff8a80; font-weight: bold; margin-bottom: 10px; font-size: 13px;}
+        .offer-btn { padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; margin: 5px; font-weight: bold; font-size: 14px; transition: background 0.3s; width: 85%; max-width: 230px; }
+        .install-btn { background-color: #d32f2f; color: white; } 
+        .install-btn:hover { background-color: #b71c1c; }
+        
+        /* অপেক্ষা করার বার্তা (টাইমার চলাকালীন) */
+        #waiting-message { display: none; color: #ff4b5c; font-weight: bold; padding: 10px; border: 1px solid #ff4b5c; border-radius: 4px; margin-top: 10px;}
+
+        /* --- ভিডিও প্লেয়ার এলাকা (লুকানো) --- */
+        #video-player-section { display: none; padding: 20px; text-align: center; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 960px; margin: 0 auto; background: #000; border-radius: 8px; border: 2px solid #333;}
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        #back-to-grid { margin-top: 20px; background: #444; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;}
+
+        /* --- টাইমার পেজের স্টাইল (নতুন ট্যাবে খোলা হবে) --- */
+        .timer-page { background-color: #000; color: #fff; font-family: Arial, sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
+        .timer-box { border: 2px solid #ff4b5c; padding: 40px; border-radius: 10px; background: #111; }
+        #time-display { font-size: 60px; color: #ff4b5c; font-weight: bold; margin: 20px 0; }
+        .timer-title { font-size: 24px; color: #ff5252; margin-bottom: 10px; }
+        .timer-text { font-size: 16px; color: #ccc; margin-bottom: 30px; }
+        #back-btn { background: #e53935; color: white; border: none; padding: 15px 30px; border-radius: 5px; font-size: 18px; cursor: pointer; display: none; }
+        #back-btn:hover { background: #b71c1c; }
     </style>
 </head>
 <body>
+    <!-- ১. সাইট হেডার -->
     <header>
-        <div class="header-left">
-            <div class="logo-icon">▶</div>
-            <span class="logo-text">থ্রিডি ভি-টিউব প্রো</span>
-        </div>
+        <h1>থ্রিডি ভি-টিউব প্রো</h1>
         <div class="header-right">
             <button class="icon-btn">🔍</button>
             <button class="icon-btn">☰</button>
         </div>
     </header>
 
+    <!-- ২. নোটিশ ব্যানার -->
     <div class="notice-container">
-        <div class="notice-bar">২৪ ঘন্টার জন্য অ্যাড-ফ্রি প্রিমিয়াম ভিডিও দেখতে সাইন আপ করুন </div>
+        <div class="notice-bar">২৪ ঘন্টার জন্য অ্যাড-ফ্রি প্রিমিয়াম ভিডিও দেখুন ৬০ সেকেন্ড এর এড দেখে </div>
     </div>
 
-    <div class="category-container">
-        <button class="cat-btn blue-border">ট্রেন্ডিং ভিডিও🎬</button>
-        <button class="cat-btn blue-border">Sexy</button>
-        <button class="cat-btn blue-border">দেশি মাল👄</button>
-
-    </div>
-
-    <main>
-        <div class="video-card-wrapper">
-            <div class="video-thumbnail-container">
-                <img src="https://i.imgur.com/K3yS5aR.jpg" alt="Cute girl video thumbnail" id="video-thumb">
-                <div class="thumb-watermark">babes<span>/FREE</span></div>
-            </div>
-            <div class="video-details">
-                <p class="video-title" id="video-title">কিউট মেয়েটাকে খেয়ে দিল</p>
-                
-                <div class="video-stats">
-                    <div class="stat-item" onclick="incrementStat('views')">
-                        <span class="stat-icon">👁️</span>
-                        <span class="stat-num" id="stat-views">...</span>
-                        <span class="stat-label">ভিউস</span>
-                    </div>
-                    <div class="stat-item" onclick="incrementStat('likes')">
-                        <span class="stat-icon">❤️</span>
-                        <span class="stat-num" id="stat-likes">...</span>
-                        <span class="stat-label">লাইক</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-icon">💬</span>
-                        <span class="stat-num" id="stat-comments">...</span>
-                        <span class="stat-label">কমেন্ট</span>
-                    </div>
-                    <div class="stat-item" onclick="incrementStat('shares')">
-                        <span class="stat-icon">🔄</span>
-                        <span class="stat-num" id="stat-shares">...</span>
-                        <span class="stat-label">শেয়ার</span>
-                    </div>
-                </div>
-            </div>
+    <!-- ৩. মূল কন্টেন্ট (ভিডিও গ্রিড) -->
+    <main id="main-area">
+        <div class="video-grid" id="video-container">
+            <p style="color: #888; text-align: center; grid-column: 1/-1; padding: 30px;">ভিডিও লোড হচ্ছে...</p>
         </div>
     </main>
 
-    <footer class="mobile-tabs">
-        <button class="tab-link active">⬅️</button>
-        <button class="tab-link">➡️</button>
-        <button class="tab-link">🏠</button>
-        <button class="tab-link">⭐</button>
-        <button class="tab-link">☰</button>
-    </footer>
+    <!-- ৪. ভিডিও প্লেয়ার এলাকা (লুকানো) -->
+    <section id="video-player-section">
+        <div class="video-container" id="video-embed-target">
+            <!-- YouTube iframe এখানে বসবে -->
+        </div>
+        <button id="back-to-grid">⬅️ সমস্ত ভিডিওতে ফিরে যান</button>
+    </section>
 
-    <!-- Firebase SDKs (CDN থেকে লোড করা হচ্ছে) -->
+    <!-- ৫. মানবিক যাচাই ও অফার পপআপ (মডেল) -->
+    <div id="verificationModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2>Verify you are human</h2>
+            <p>ভিডিওটি দেখার আগে অনুগ্রহ করে প্রমাণ করুন যে আপনি রোবট নন।</p>
+            
+            <!-- চেক বক্স -->
+            <div class="verify-box">
+                <input type="checkbox" id="humanCheck">
+                <label for="humanCheck">I am not a robot</label>
+            </div>
+            
+            <!-- ডায়নামিক অফার এলাকা -->
+            <div class="dynamic-offer-block" id="offer-area">
+                <p>এগিয়ে যেতে নিচের বাটনটি ক্লিক করুন এবং ৬০ সেকেন্ড অপেক্ষা করুন:</p>
+                <div id="offer-buttons-container">
+                    <span id="offer-loading">অফার লোড হচ্ছে...</span>
+                    <!-- অফার বাটন এখানে আসবে -->
+                </div>
+            </div>
+            <!-- অপেক্ষা করার বার্তা -->
+            <div id="waiting-message">অন্য ট্যাবে অফারটি সম্পন্ন হচ্ছে... অফার সম্পূর্ণ হলে এই ট্যাবটি অটোমেটিক্যালি চালু হবে।</div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs (CDN থেকে) -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
+    <!-- ৬. JavaScript লজিক -->
     <script>
         // --- ফায়ারবেস কনফিগারেশন ---
-        // !!! গুরুত্বপূর্ণ: আপনার Firebase প্রজেক্ট সেটিংস থেকে এই তথ্যগুলি এখানে বসাতে হবে !!!
-        // Firebase Console > Project Settings > General > Your apps > Firebase SDK snippet > Config
         const firebaseConfig = {
             apiKey: "AIzaSyArUnLdrmx0d1hSc05o7H2QpediJAarIv8",
             authDomain: "dhotmovie-7e866.firebaseapp.com",
@@ -132,66 +166,61 @@
         }
         const db = firebase.firestore();
 
-        // --- মূল লজিক: Firestore থেকে ডেটা আনা এবং আপডেট করা ---
-        
-        // আমরা 'videos' কালেকশন থেকে 'main_video' ডকুমেন্টটি পড়ছি
-        const videoRef = db.collection("videos").doc("main_video");
+        // --- গ্লোবাল ভেরিয়েবল ---
+        let currentVideoIdToPlay = null; 
+        let offerCheckInterval = null;
+        const modal = document.getElementById('verificationModal');
+        const humanCheck = document.getElementById('humanCheck');
+        const offerContainer = document.getElementById('offer-buttons-container');
+        const waitingMessage = document.getElementById('waiting-message');
+        const mainArea = document.getElementById('main-area');
+        const videoPlayerSection = document.getElementById('video-player-section');
+        const videoEmbedTarget = document.getElementById('video-embed-target');
 
-        // পেজ লোড হলেই ডেটাবেস থেকে তথ্য নিয়ে আসুন
+        // ২৪ ঘন্টা অফার না দেখানোর জন্য চাবি
+        const OFFER_COMPLETED_KEY = 'greedyflix_offer_done';
+        const COMPLETED_TIMESTAMP_KEY = 'greedyflix_offer_time';
+
+        // --- মূল ফাংশন: পেজ লোড হলে ---
         document.addEventListener("DOMContentLoaded", () => {
-            setupRealtimeListener();
+            // URL চেক করুন এটি টাইমার পেজ কিনা
+            if (window.location.search.includes('timer=page')) {
+                runTimerPage();
+                return;
+            }
+
+            // মূল সাইটের কাজ
+            loadVideosFromFirestore();
+            loadDynamicOffers();
+
+            // যদি ২৪ ঘন্টার মধ্যে অফার কমপ্লিট করা থাকে, তবে পপআপ দেখাবেন না
+            if (isOfferRecentlyCompleted()) {
+                humanCheck.checked = true; 
+            }
         });
 
-        // রিয়েলটাইম লিসেনার (ডেটা পরিবর্তন হলে অটোমেটিক আপডেট হবে)
-        function setupRealtimeListener() {
-            videoRef.onSnapshot((doc) => {
-                if (doc.exists) {
-                    const data = doc.data();
-                    
-                    // HTML উপাদানগুলো আপডেট করুন
-                    document.getElementById('stat-views').textContent = data.views ? data.views.toLocaleString() : 0;
-                    document.getElementById('stat-likes').textContent = data.likes ? data.likes.toLocaleString() : 0;
-                    document.getElementById('stat-comments').textContent = data.comments ? data.comments.toLocaleString() : 0;
-                    document.getElementById('stat-shares').textContent = data.shares ? data.shares.toLocaleString() : 0;
-                    
-                    // আপনি চাইলে টাইটেল বা থাম্বনেইলও এখান থেকে কন্ট্রোল করতে পারেন
-                    if(data.title) document.getElementById('video-title').textContent = data.title;
-                    if(data.thumbnail_url) document.getElementById('video-thumb').src = data.thumbnail_url;
+        // চেক করুন অফার কি ২৪ ঘন্টার মধ্যে কমপ্লিট করা হয়েছে?
+        function isOfferRecentlyCompleted() {
+            const completed = localStorage.getItem(OFFER_COMPLETED_KEY);
+            const timestamp = localStorage.getItem(COMPLETED_TIMESTAMP_KEY);
+            
+            if (completed && timestamp) {
+                const now = new Date().getTime();
+                const hoursPassed = (now - parseInt(timestamp)) / (1000 * 60 * 60);
+                return hoursPassed < 24; // ২৪ ঘন্টার কম হলে সত্য
+            }
+            return false;
+        }
 
-                } else {
-                    console.error("No such document! Creating default...");
-                    // যদি ডকুমেন্ট না থাকে, তবে ডিফল্ট ভ্যালু দিয়ে তৈরি করুন
-                    videoRef.set({
-                        title: "কিউট মেয়েটাকে খেয়ে দিল",
-                        views: 37,
-                        likes: 4,
-                        comments: 0,
-                        shares: 0
-                    });
+        // ১. Firestore থেকে ভিডিও লোড করা
+        function loadVideosFromFirestore() {
+            const videoContainer = document.getElementById('video-container');
+            db.collection("videos").get().then((querySnapshot) => {
+                videoContainer.innerHTML = '';
+                if (querySnapshot.empty) {
+                    videoContainer.innerHTML = '<p style="color: #888; text-align: center; grid-column: 1/-1;">কোনো ভিডিও পাওয়া যায়নি。</p>';
+                    return;
                 }
-            }, (error) => {
-                console.error("Error getting real-time data:", error);
-            });
-        }
-
-        // ফাংশন: ক্লিক করলে সংখ্যা বাড়ানো (লাইক, শেয়ার, ভিউ)
-        function incrementStat(statName) {
-            // ফায়ারবেস ট্রানজেকশন ব্যবহার করে নিরাপদে কাউন্ট বাড়ান
-            db.runTransaction((transaction) => {
-                return transaction.get(videoRef).then((doc) => {
-                    if (!doc.exists) {
-                        throw "Document does not exist!";
-                    }
-                    // বর্তমান মানের সাথে ১ যোগ করুন
-                    const currentVal = doc.data()[statName] || 0;
-                    transaction.update(videoRef, { [statName]: currentVal + 1 });
-                });
-            }).then(() => {
-                console.log(`${statName} successfully incremented!`);
-            }).catch((err) => {
-                console.error("Transaction failed: ", err);
-            });
-        }
-    </script>
-</body>
-</html>
+                querySnapshot.forEach((doc) => {
+                    const video = doc.data();
+                    const videoCard = document.createElement
