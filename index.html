@@ -4,211 +4,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>থ্রিডি ভি-টিউব প্রো - হট ভিডিও</title>
+    <title>থ্রিডি ভি-টিউব প্রো - প্রিমিয়াম</title>
     
     <style>
-        /* --- গ্লোবাল স্টাইল --- */
-        body { background-color: #000000; color: #ffffff; font-family: Arial, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
-        header { background-color: #1a1a1a; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e53935; }
+        /* --- স্টাইল --- */
+        body { background-color: #000; color: #fff; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        header { background-color: #1a1a1a; padding: 15px; text-align: center; border-bottom: 2px solid #e53935; }
         header h1 { margin: 0; color: #e53935; font-size: 22px; }
 
-        /* --- নোটিশ --- */
-        .notice-container { padding: 10px; }
-        .notice-bar {
-            background: linear-gradient(90deg, #ff416c, #ff4b2b);
-            padding: 12px; text-align: center; border-radius: 10px; font-weight: bold; font-size: 14px;
-        }
+        .notice-bar { background: linear-gradient(90deg, #ff416c, #ff4b2b); padding: 12px; text-align: center; font-weight: bold; font-size: 14px; margin: 10px; border-radius: 8px; }
 
-        /* --- ভিডিও গ্রিড --- */
+        /* ভিডিও গ্রিড */
         main { padding: 15px; }
         .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-        
-        .video-card { background-color: #111; border-radius: 8px; overflow: hidden; border: 1px solid #333; position: relative; cursor: pointer; }
+        .video-card { background: #111; border-radius: 8px; overflow: hidden; border: 1px solid #333; cursor: pointer; position: relative; }
         .video-card img { width: 100%; height: 110px; object-fit: cover; }
-        
-        .video-info { padding: 8px; }
-        .video-title { font-size: 13px; font-weight: 500; height: 36px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .video-info { padding: 8px; font-size: 13px; height: 36px; overflow: hidden; }
 
-        .play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 110px; background: rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; }
-        .play-icon { font-size: 30px; color: white; opacity: 0.8; }
+        /* প্লেয়ার এরিয়া */
+        #player-section { display: none; padding: 15px; text-align: center; }
+        .video-box { width: 100%; max-width: 800px; margin: 0 auto; background: #000; border: 1px solid #444; }
+        video, iframe { width: 100%; height: 300px; }
+        .back-btn { margin-top: 20px; background: #333; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
 
-        /* --- ভিডিও প্লেয়ার --- */
-        #video-player-section { display: none; padding: 15px; text-align: center; }
-        .video-container { max-width: 100%; background: #000; border: 1px solid #444; border-radius: 8px; overflow: hidden; }
-        video { width: 100%; height: auto; outline: none; }
-        #back-btn { margin-top: 20px; background: #333; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        /* ভেরিফিকেশন পপআপ */
+        .modal { display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
+        .modal-content { background: #1a1a1a; padding: 30px; border-radius: 12px; text-align: center; width: 85%; max-width: 400px; border: 2px solid #e53935; }
+        .offer-btn { background: #e53935; color: white; border: none; padding: 15px 25px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 20px; width: 100%; }
+        #waiting-msg { display: none; color: #ffeb3b; margin-top: 20px; font-weight: bold; }
 
-        /* --- ভেরিফিকেশন পপআপ --- */
-        .modal-overlay { display: none; position: fixed; z-index: 999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
-        .modal-content { background: #1a1a1a; padding: 25px; border-radius: 10px; text-align: center; width: 85%; max-width: 350px; border: 2px solid #e53935; }
-        .verify-box { background: #fff; color: #000; padding: 15px; margin: 20px 0; border-radius: 5px; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; }
-        .verify-box input { transform: scale(1.5); }
+        /* টাইমার পেজ স্টাইল */
+        #timer-body { display: none; text-align: center; padding-top: 100px; }
+        .timer-circle { font-size: 60px; color: #ff4b2b; font-weight: bold; margin: 20px; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>থ্রিডি ভি-টিউব প্রো</h1>
-        <div style="font-size: 20px;">🔍 ☰</div>
-    </header>
+<div id="main-site-ui">
+    <header><h1>থ্রিডি ভি-টিউব প্রো</h1></header>
+    <div class="notice-bar">ভিডিও দেখতে হলে ৬০ সেকেন্ডের এড দেখতে হবে (২৪ ঘন্টা ফ্রি)</div>
 
-    <div class="notice-container">
-        <div class="notice-bar">২৪ ঘন্টার জন্য অ্যাড-ফ্রি ভিডিও দেখতে বক্সে টিক দিন!</div>
-    </div>
-
-    <!-- ভিডিও লিস্ট এরিয়া -->
-    <main id="main-area">
+    <main id="grid-area">
         <div class="video-grid" id="video-container">
-            <p style="text-align: center; width: 100%; padding: 50px;">ভিডিও লোড হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...</p>
+            <p style="text-align:center; width:100%;">ভিডিও লোড হচ্ছে...</p>
         </div>
     </main>
 
-    <!-- প্লেয়ার এরিয়া -->
-    <section id="video-player-section">
-        <div class="video-container">
-            <video id="main-video-player" controls controlsList="nodownload"></video>
-        </div>
-        <button id="back-btn" onclick="goBack()">⬅️ ব্যাকে যান</button>
+    <section id="player-section">
+        <div class="video-box" id="video-wrapper"></div>
+        <button class="back-btn" onclick="goBack()">⬅️ গ্যালারিতে ফিরে যান</button>
     </section>
 
-    <!-- ভেরিফিকেশন পপআপ -->
-    <div id="verificationModal" class="modal-overlay">
+    <!-- পপআপ -->
+    <div id="verificationModal" class="modal">
         <div class="modal-content">
-            <h2 style="color: #ff5252; margin-top: 0;">মানবিক যাচাই</h2>
-            <p>ভিডিওটি চালু করতে নিচের বক্সে টিক দিন</p>
-            <div class="verify-box">
-                <input type="checkbox" id="humanCheck" onclick="verifyHuman()">
-                <label for="humanCheck">I am not a robot</label>
-            </div>
-            <button onclick="closeModal()" style="background: none; border: none; color: #888; cursor: pointer;">বন্ধ করুন</button>
+            <h2 style="color:#ff5252;">মানবিক যাচাই!</h2>
+            <p>ভিডিওটি আনলক করতে নিচের বাটনে ক্লিক করে ৬০ সেকেন্ড অপেক্ষা করুন।</p>
+            <button class="offer-btn" onclick="startOffer()">অফারটি চালু করুন</button>
+            <div id="waiting-msg">নতুন ট্যাবে টাইমার চলছে... ফিরে আসবেন না!</div>
         </div>
     </div>
+</div>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<!-- টাইমার UI (একই ফাইলে আলাদা অংশ) -->
+<div id="timer-body">
+    <h1 style="color:#e53935;">অফার ভেরিফিকেশন</h1>
+    <p>অনুগ্রহ করে এই ট্যাবটি বন্ধ করবেন না।</p>
+    <div class="timer-circle" id="seconds">60</div>
+    <p id="timer-status">অপেক্ষা করুন...</p>
+    <button id="close-timer-btn" style="display:none; padding:15px; background:green; color:white; border:none; border-radius:5px;" onclick="window.close()">এখন এই ট্যাব বন্ধ করে মূল সাইটে যান</button>
+</div>
 
-    <script>
-        // ১. আপনার দেওয়া কনফিগারেশন
-        const firebaseConfig = {
-            apiKey: "AIzaSyArUnLdrmx0d1hSc05o7H2QpediJAarIv8",
-            authDomain: "dhotmovie-7e866.firebaseapp.com",
-            projectId: "dhotmovie-7e866",
-            storageBucket: "dhotmovie-7e866.firebasestorage.app",
-            messagingSenderId: "180510780394",
-            appId: "1:180510780394:web:3b80f5f43b78375436e093",
-            measurementId: "G-EFTD6TJ43J"
-        };
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
-        // ২. ফায়ারবেস ইনিশিয়ালাইজ
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        const db = firebase.firestore();
+<script>
+    // ১. Firebase Config
+    const firebaseConfig = {
+        apiKey: "AIzaSyArUnLdrmx0d1hSc05o7H2QpediJAarIv8",
+        authDomain: "dhotmovie-7e866.firebaseapp.com",
+        projectId: "dhotmovie-7e866",
+        storageBucket: "dhotmovie-7e866.firebasestorage.app",
+        messagingSenderId: "180510780394",
+        appId: "1:180510780394:web:3b80f5f43b78375436e093"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-        let selectedVideoUrl = "";
+    let pendingVideoUrl = "";
+    const VERIFIED_KEY = "vtube_pro_verified";
+    const TIMER_DONE_KEY = "vtube_timer_complete";
 
-        // ৩. ভিডিও ডাটা লোড করা
-        function fetchVideos() {
-            const container = document.getElementById('video-container');
-
-            db.collection("videos").get().then((querySnapshot) => {
-                container.innerHTML = ""; // লোডিং টেক্সট মুছুন
-
-                if (querySnapshot.empty) {
-                    container.innerHTML = "<p>কোনো ভিডিও পাওয়া যায়নি।</p>";
-                    return;
-                }
-
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const card = document.createElement('div');
-                    card.className = 'video-card';
-                    card.onclick = () => openVideo(data.videoUrl);
-                    
-                    card.innerHTML = `
-                        <img src="${data.thumbnail}" onerror="this.src='https://via.placeholder.com/160x110?text=No+Thumb'">
-                        <div class="play-overlay"><div class="play-icon">▶️</div></div>
-                        <div class="video-info">
-                            <div class="video-title">${data.title}</div>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-            }).catch((error) => {
-                console.error("Error fetching data: ", error);
-                container.innerHTML = "<p>ডাটাবেস কানেকশন এরর!</p>";
-            });
-        }
-
-        // ৪. ভিডিও ওপেন করার লজিক
-        function openVideo(url) {
-            selectedVideoUrl = url;
-            // ভেরিফিকেশন চেক
-            if (localStorage.getItem('user_verified') === 'true') {
-                startPlayback(url);
-            } else {
-                document.getElementById('verificationModal').style.display = 'flex';
-            }
-        }
-
-        // ৫. ভেরিফিকেশন ফাংশন
-        function verifyHuman() {
-            if (document.getElementById('humanCheck').checked) {
-                setTimeout(() => {
-                    localStorage.setItem('user_verified', 'true');
-                    document.getElementById('verificationModal').style.display = 'none';
-                    startPlayback(selectedVideoUrl);
-                }, 500);
-            }
-        }
-
-// ৬. প্লেয়ার চালু করার ফাংশন (Pixeldrain সাপোর্ট সহ)
-function startPlayback(url) {
-    document.getElementById('main-area').style.display = 'none';
-    document.getElementById('video-player-section').style.display = 'block';
-    
-    const videoContainer = document.querySelector('.video-container');
-
-    // ১. Pixeldrain লিঙ্ক ঠিক করা
-    // যদি লিঙ্ক এমন হয়: https://pixeldrain.com/u/xxxxxx
-    // ওটাকে বানাতে হবে: https://pixeldrain.com/api/file/xxxxxx
-    if (url.includes('pixeldrain.com/u/')) {
-        url = url.replace('pixeldrain.com/u/', 'pixeldrain.com/api/file/');
+    // ২. চেক করা হচ্ছে এটা কি টাইমার পেজ কি না
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('timer')) {
+        document.getElementById('main-site-ui').style.display = 'none';
+        document.getElementById('timer-body').style.display = 'block';
+        runTimer();
+    } else {
+        loadVideos();
     }
 
-    // ২. প্লেয়ার সেটআপ
-    videoContainer.innerHTML = `
-        <video id="main-video-player" controls autoplay controlsList="nodownload" style="width:100%; border-radius: 8px;">
-            <source src="${url}" type="video/mp4">
-            আপনার ব্রাউজার এই ভিডিও সমর্থন করে না।
-        </video>
-    `;
+    // ৩. ভিডিও লোড করা
+    function loadVideos() {
+        const container = document.getElementById('video-container');
+        db.collection("videos").get().then((querySnapshot) => {
+            container.innerHTML = "";
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.onclick = () => tryPlay(data.videoUrl);
+                card.innerHTML = `
+                    <img src="${data.thumbnail}">
+                    <div class="video-info">${data.title}</div>
+                `;
+                container.appendChild(card);
+            });
+        });
+    }
 
-    // ৩. ভিডিও লোড এবং প্লে নিশ্চিত করা
-    const player = document.getElementById('main-video-player');
-    player.load();
-    player.play().catch(error => {
-        console.log("Autoplay blocked. User must click play.");
-    });
-}
+    // ৪. ভিডিও প্লে করার চেষ্টা
+    function tryPlay(url) {
+        pendingVideoUrl = url;
+        const lastVerified = localStorage.getItem(VERIFIED_KEY);
+        const now = new Date().getTime();
 
-        // ৭. ব্যাকে আসা
-        function goBack() {
-            const videoElement = document.getElementById('main-video-player');
-            videoElement.pause();
-            document.getElementById('video-player-section').style.display = 'none';
-            document.getElementById('main-area').style.display = 'block';
+        // ২৪ ঘন্টা চেক (২৪ * ৬০ * ৬০ * ১০০০ মিলি সেকেন্ড)
+        if (lastVerified && (now - lastVerified < 86400000)) {
+            startVideo(url);
+        } else {
+            document.getElementById('verificationModal').style.display = 'flex';
+        }
+    }
+
+    // ৫. অফার শুরু করা (নতুন ট্যাব খোলা)
+    function startOffer() {
+        localStorage.removeItem(TIMER_DONE_KEY); // আগের ডাটা মোছা
+        document.querySelector('.offer-btn').style.display = 'none';
+        document.getElementById('waiting-msg').style.display = 'block';
+
+        // বর্তমান লিঙ্কেই টাইমার প্যারামিটার দিয়ে নতুন ট্যাব খোলা
+        const timerUrl = window.location.origin + window.location.pathname + "?timer=true";
+        window.open(timerUrl, '_blank');
+
+        // চেক করা শুরু করো কখন টাইমার শেষ হবে
+        const checkInterval = setInterval(() => {
+            if (localStorage.getItem(TIMER_DONE_KEY) === 'true') {
+                clearInterval(checkInterval);
+                localStorage.setItem(VERIFIED_KEY, new Date().getTime()); // ২৪ ঘন্টা শুরু
+                document.getElementById('verificationModal').style.display = 'none';
+                startVideo(pendingVideoUrl);
+            }
+        }, 1000);
+    }
+
+    // ৬. টাইমার চালানো (নতুন ট্যাবে)
+    function runTimer() {
+        let sec = 60;
+        const timerText = document.getElementById('seconds');
+        const timerStatus = document.getElementById('timer-status');
+        
+        const countdown = setInterval(() => {
+            sec--;
+            timerText.innerText = sec;
+            if (sec <= 0) {
+                clearInterval(countdown);
+                localStorage.setItem(TIMER_DONE_KEY, 'true'); // মূল ট্যাবকে জানানো
+                timerStatus.innerHTML = "✅ ভেরিফিকেশন সফল!";
+                document.getElementById('close-timer-btn').style.display = 'inline-block';
+                timerText.style.color = "green";
+            }
+        }, 1000);
+    }
+
+    // ৭. ভিডিও প্লেয়ার চালু করা (Universal Player)
+    function startVideo(url) {
+        document.getElementById('grid-area').style.display = 'none';
+        document.getElementById('player-section').style.display = 'block';
+        const wrapper = document.getElementById('video-wrapper');
+
+        let finalUrl = url;
+        if (url.includes('pixeldrain.com/u/')) {
+            finalUrl = url.replace('/u/', '/api/file/');
         }
 
-        function closeModal() {
-            document.getElementById('verificationModal').style.display = 'none';
-            document.getElementById('humanCheck').checked = false;
+        // যদি ভিডিও সরাসরি লিঙ্ক হয়
+        if (finalUrl.includes('.mp4') || finalUrl.includes('pixeldrain')) {
+            wrapper.innerHTML = `<video src="${finalUrl}" controls autoplay></video>`;
+        } else {
+            // অন্য সব লিঙ্কের জন্য Iframe
+            wrapper.innerHTML = `<iframe src="${finalUrl}" frameborder="0" allowfullscreen></iframe>`;
         }
+    }
 
-        // পেজ লোড হলে ভিডিও ডাটা আনো
-        window.onload = fetchVideos;
-    </script>
+    function goBack() {
+        document.getElementById('player-section').style.display = 'none';
+        document.getElementById('grid-area').style.display = 'block';
+        document.getElementById('video-wrapper').innerHTML = "";
+    }
+</script>
+
 </body>
 </html>
-
